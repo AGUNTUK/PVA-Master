@@ -1,0 +1,6 @@
+{
+  "name": "PVA Accounts - Official WhatsApp Contact",
+  "description": "Production-ready landing page for Phone Verified Accounts (PVA) services with dynamic WhatsApp, Telegram, and Email configuration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

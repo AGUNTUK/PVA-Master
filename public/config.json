@@ -1,0 +1,65 @@
+{
+  "whatsappNumber": "8801916400512",
+  "defaultMessage": "Hi, I came from your website for PVA services.",
+  "telegramUsername": "yourusername",
+  "supportEmail": "support@example.com",
+  "businessName": "PVA Master Services",
+  "responseRate": "< 2 Mins",
+  "noticeMessage": "📌 Bookmark (Ctrl + D) this page link! If our WhatsApp contact changes, you will always find our latest running WhatsApp here.",
+  "platforms": [
+    {
+      "id": "gmail",
+      "name": "Gmail / Google PVA",
+      "icon": "Mail",
+      "status": "In Stock",
+      "badge": "Hot Item",
+      "description": "Phone verified aged & fresh Google accounts with recovery email.",
+      "startingPrice": "$1.50 / acct"
+    },
+    {
+      "id": "telegram",
+      "name": "Telegram PVA",
+      "icon": "MessageSquare",
+      "status": "In Stock",
+      "badge": "Instant",
+      "description": "Session + Json or TData login supported worldwide virtual numbers.",
+      "startingPrice": "$2.00 / acct"
+    },
+    {
+      "id": "whatsapp",
+      "name": "WhatsApp PVA",
+      "icon": "PhoneCall",
+      "status": "In Stock",
+      "badge": "High Bulk",
+      "description": "Channels, hash format, or device transfer ready verified WA accounts.",
+      "startingPrice": "$2.50 / acct"
+    },
+    {
+      "id": "outlook",
+      "name": "Outlook / Hotmail PVA",
+      "icon": "MailCheck",
+      "status": "In Stock",
+      "badge": "Bulk Discount",
+      "description": "POP3/IMAP enabled phone verified Microsoft email accounts.",
+      "startingPrice": "$0.50 / acct"
+    },
+    {
+      "id": "twitter",
+      "name": "X / Twitter PVA",
+      "icon": "Share2",
+      "status": "In Stock",
+      "badge": "Aged & Fresh",
+      "description": "Phone & email double verified Twitter accounts with token access.",
+      "startingPrice": "$1.80 / acct"
+    },
+    {
+      "id": "instagram",
+      "name": "Instagram / FB PVA",
+      "icon": "Camera",
+      "status": "In Stock",
+      "badge": "Real IP",
+      "description": "Phone verified social media profile accounts with cookies.",
+      "startingPrice": "$2.20 / acct"
+    }
+  ]
+}
