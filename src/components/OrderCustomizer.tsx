@@ -154,7 +154,7 @@ export const OrderCustomizer: React.FC<OrderCustomizerProps> = ({
         <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800 mb-6">
           <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
             <span className="font-semibold text-slate-300">Generated WhatsApp Message Preview:</span>
-            <span className="text-emerald-400 font-mono text-[11px]">+8801916400512</span>
+            <span className="text-emerald-400 font-mono text-[11px]">+{config.whatsappNumber}</span>
           </div>
           <p className="text-xs sm:text-sm text-emerald-300/90 font-mono leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-800">
             "{generatedMessage}"

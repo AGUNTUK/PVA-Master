@@ -8,9 +8,8 @@ import { PvaCatalog } from './components/PvaCatalog';
 import { OrderCustomizer } from './components/OrderCustomizer';
 import { BackupChannels } from './components/BackupChannels';
 import { FaqSection } from './components/FaqSection';
-import { ConfigModal } from './components/ConfigModal';
 import { Footer } from './components/Footer';
-import { Check, Info, AlertTriangle, Loader2 } from 'lucide-react';
+import { Check, Loader2 } from 'lucide-react';
 
 const DEFAULT_CONFIG: AppConfig = {
   whatsappNumber: '8801916400512',
@@ -26,43 +25,24 @@ const DEFAULT_CONFIG: AppConfig = {
 export default function App() {
   const [config, setConfig] = useState<AppConfig>(DEFAULT_CONFIG);
   const [loading, setLoading] = useState<boolean>(true);
-  const [configSource, setConfigSource] = useState<string>('config.json');
-  const [isConfigModalOpen, setIsConfigModalOpen] = useState<boolean>(false);
   const [isBookmarked, setIsBookmarked] = useState<boolean>(false);
   const [selectedPlatformForCalc, setSelectedPlatformForCalc] = useState<string | undefined>(undefined);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  // Fetch config.json on mount
+  // Fetch config.json on mount directly
   useEffect(() => {
     async function loadConfig() {
       try {
-        // Try local storage edit cache first if available for user testing session
-        const cached = localStorage.getItem('pva_custom_config');
-        if (cached) {
-          try {
-            const parsedCache = JSON.parse(cached);
-            setConfig(parsedCache);
-            setConfigSource('LocalStorage Session Override');
-            setLoading(false);
-            return;
-          } catch (e) {
-            console.warn('Stale localStorage cache ignored.');
-          }
-        }
-
-        // Fetch public config.json or /config.json
         const response = await fetch('/config.json');
         if (response.ok) {
           const data = await response.json();
           setConfig(data);
-          setConfigSource('config.json');
         } else {
           // Fallback to /public/config.json if path differs
           const fallbackRes = await fetch('/public/config.json');
           if (fallbackRes.ok) {
             const fallbackData = await fallbackRes.json();
             setConfig(fallbackData);
-            setConfigSource('public/config.json');
           }
         }
       } catch (err) {
@@ -75,7 +55,7 @@ export default function App() {
     loadConfig();
   }, []);
 
-  // Compute dynamic WhatsApp URL
+  // Compute dynamic WhatsApp URL from config.json
   const encodedMsg = encodeURIComponent(config.defaultMessage || DEFAULT_CONFIG.defaultMessage);
   const whatsappUrl = `https://wa.me/${config.whatsappNumber}?text=${encodedMsg}`;
 
@@ -87,20 +67,6 @@ export default function App() {
   const handleBookmark = () => {
     setIsBookmarked(true);
     showToast('📌 Page bookmarked! Press Ctrl + D (or Cmd + D) to save to browser bookmarks.');
-  };
-
-  const handleUpdateConfig = (newConfig: AppConfig) => {
-    setConfig(newConfig);
-    localStorage.setItem('pva_custom_config', JSON.stringify(newConfig));
-    setConfigSource('Live Session Update');
-    showToast('✅ Dynamic links updated from new config.json values!');
-  };
-
-  const handleResetConfig = () => {
-    localStorage.removeItem('pva_custom_config');
-    setConfig(DEFAULT_CONFIG);
-    setConfigSource('Default config.json');
-    showToast('🔄 Reset to default config.json values!');
   };
 
   const handleSelectPlatformForCalc = (platformName: string) => {
@@ -121,14 +87,13 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f17] text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950 flex flex-col justify-between">
+    <div className="min-h-screen bg-[#0b0f17] text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950 flex flex-col justify-between overflow-x-hidden">
       
       <div>
         {/* Navigation Bar */}
         <Navbar
           config={config}
           whatsappUrl={whatsappUrl}
-          onOpenConfigEditor={() => setIsConfigModalOpen(true)}
           onBookmark={handleBookmark}
           isBookmarked={isBookmarked}
         />
@@ -169,15 +134,6 @@ export default function App() {
 
       {/* Footer */}
       <Footer config={config} whatsappUrl={whatsappUrl} />
-
-      {/* Dynamic Config Editor Modal */}
-      <ConfigModal
-        isOpen={isConfigModalOpen}
-        onClose={() => setIsConfigModalOpen(false)}
-        config={config}
-        onUpdateConfig={handleUpdateConfig}
-        onResetDefault={handleResetConfig}
-      />
 
       {/* Toast Notification */}
       {toastMessage && (
